@@ -1,0 +1,12 @@
+D:\Work\Git\blood-plus\services\BloodPlus.Database\bin\Debug\netcoreapp2.2\BloodPlus.Database.deps.json
+D:\Work\Git\blood-plus\services\BloodPlus.Database\bin\Debug\netcoreapp2.2\BloodPlus.Database.runtimeconfig.json
+D:\Work\Git\blood-plus\services\BloodPlus.Database\bin\Debug\netcoreapp2.2\BloodPlus.Database.runtimeconfig.dev.json
+D:\Work\Git\blood-plus\services\BloodPlus.Database\bin\Debug\netcoreapp2.2\BloodPlus.Database.dll
+D:\Work\Git\blood-plus\services\BloodPlus.Database\bin\Debug\netcoreapp2.2\BloodPlus.Database.pdb
+D:\Work\Git\blood-plus\services\BloodPlus.Database\obj\Debug\netcoreapp2.2\BloodPlus.Database.csprojAssemblyReference.cache
+D:\Work\Git\blood-plus\services\BloodPlus.Database\obj\Debug\netcoreapp2.2\BloodPlus.Database.csproj.CoreCompileInputs.cache
+D:\Work\Git\blood-plus\services\BloodPlus.Database\obj\Debug\netcoreapp2.2\BloodPlus.Database.AssemblyInfoInputs.cache
+D:\Work\Git\blood-plus\services\BloodPlus.Database\obj\Debug\netcoreapp2.2\BloodPlus.Database.AssemblyInfo.cs
+D:\Work\Git\blood-plus\services\BloodPlus.Database\obj\Debug\netcoreapp2.2\BloodPlus.Database.dll
+D:\Work\Git\blood-plus\services\BloodPlus.Database\obj\Debug\netcoreapp2.2\BloodPlus.Database.pdb
+D:\Work\Git\blood-plus\services\BloodPlus.Database\obj\Debug\netcoreapp2.2\BloodPlus.Database.genruntimeconfig.cache

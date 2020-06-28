@@ -23,7 +23,7 @@ namespace BloodPlus.API
         {
             services.AddControllers();
             services.AddAutoMapper(typeof(MappingProfile));
-            services.AddDbContext<BloodPlusDatabaseContext>();
+            services.AddTransient<BloodPlusDatabaseContext>();
             services.AddScoped<ICountryRepository, CountryRepository>();
             services.AddScoped<ICityRepository, CityRepository>();
         }

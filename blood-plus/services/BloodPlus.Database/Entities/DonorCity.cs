@@ -12,5 +12,8 @@ namespace BloodPlus.Database.Entities
 
         public City City { get; set; }
         public int CityId { get; set; }
+
+        public State State { get; set; }
+        public int StateId { get; set; }
     }
 }

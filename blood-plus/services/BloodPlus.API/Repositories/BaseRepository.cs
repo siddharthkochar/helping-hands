@@ -4,9 +4,9 @@ namespace BloodPlus.API.Repositories
 {
     public abstract class BaseRepository
     {
-        protected readonly IBloodPlusDatabaseContext DbContext;
+        protected readonly BloodPlusDatabaseContext DbContext;
 
-        protected BaseRepository(IBloodPlusDatabaseContext dbContext)
+        protected BaseRepository(BloodPlusDatabaseContext dbContext)
         {
             DbContext = dbContext;
         }

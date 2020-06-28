@@ -1,21 +1,10 @@
-﻿using BloodPlus.Database.Entities;
+﻿using BloodPlus.Database.DataSeeds;
+using BloodPlus.Database.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace BloodPlus.Database
 {
-    public interface IBloodPlusDatabaseContext
-    {
-        DbSet<City> Cities { get; set; }
-        DbSet<Country> Countries { get; set; }
-        DbSet<Donor> Donors { get; set; }
-        DbSet<DonorCity> DonorCities { get; set; }
-        DbSet<LookupType> LookupTypes { get; set; }
-        DbSet<LookupValue> LookupValues { get; set; }
-        DbSet<State> States { get; set; }
-        DbSet<UserActivityLog> UserActivityLogs { get; set; }
-    }
-
-    public class BloodPlusDatabaseContext : DbContext, IBloodPlusDatabaseContext
+    public class BloodPlusDatabaseContext : DbContext
     {
         public DbSet<Country> Countries { get; set; }
         public DbSet<Donor> Donors { get; set; }
@@ -60,6 +49,9 @@ namespace BloodPlus.Database
 
             modelBuilder.Entity<UserActivityLog>()
                 .HasNoKey();
+
+            modelBuilder.ApplyConfiguration(new LookupTypes());
+            modelBuilder.ApplyConfiguration(new LookupValues());
         }
     }
 }

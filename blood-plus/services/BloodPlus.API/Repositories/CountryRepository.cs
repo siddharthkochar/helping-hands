@@ -13,7 +13,7 @@ namespace BloodPlus.API.Repositories
 
     public class CountryRepository : BaseRepository, ICountryRepository
     {
-        public CountryRepository(IBloodPlusDatabaseContext dbContext) : base(dbContext)
+        public CountryRepository(BloodPlusDatabaseContext dbContext) : base(dbContext)
         {
         }
 

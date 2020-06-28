@@ -1,20 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
-using BloodPlus.API.Models;
 using BloodPlus.API.Repositories;
 using BloodPlus.Database;
-using BloodPlus.Database.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace BloodPlus.API
 {
@@ -32,7 +23,7 @@ namespace BloodPlus.API
         {
             services.AddControllers();
             services.AddAutoMapper(typeof(MappingProfile));
-            services.AddScoped<IBloodPlusDatabaseContext, BloodPlusDatabaseContext>();
+            services.AddDbContext<BloodPlusDatabaseContext>();
             services.AddScoped<ICountryRepository, CountryRepository>();
             services.AddScoped<ICityRepository, CityRepository>();
         }

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BloodPlus.Database.Migrations
 {
     [DbContext(typeof(BloodPlusDatabaseContext))]
-    [Migration("20200614142741_AddRemainingTables")]
-    partial class AddRemainingTables
+    [Migration("20200628091523_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -134,6 +134,28 @@ namespace BloodPlus.Database.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("LookupTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Gender"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "BloodGroup"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Status"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "UserActivity"
+                        });
                 });
 
             modelBuilder.Entity("BloodPlus.Database.Entities.LookupValue", b =>
@@ -156,6 +178,140 @@ namespace BloodPlus.Database.Migrations
                         .IsUnique();
 
                     b.ToTable("LookupValues");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            LookupTypeId = 1,
+                            Value = "M"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            LookupTypeId = 1,
+                            Value = "F"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            LookupTypeId = 2,
+                            Value = "AB+"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            LookupTypeId = 2,
+                            Value = "AB-"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            LookupTypeId = 2,
+                            Value = "A+"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            LookupTypeId = 2,
+                            Value = "A-"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            LookupTypeId = 2,
+                            Value = "B+"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            LookupTypeId = 2,
+                            Value = "B-"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            LookupTypeId = 2,
+                            Value = "O+"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            LookupTypeId = 2,
+                            Value = "O-"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            LookupTypeId = 3,
+                            Value = "Available"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            LookupTypeId = 3,
+                            Value = "Fake"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            LookupTypeId = 3,
+                            Value = "Inappropriate"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            LookupTypeId = 3,
+                            Value = "More"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            LookupTypeId = 3,
+                            Value = "Unreachable"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            LookupTypeId = 3,
+                            Value = "Other"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            LookupTypeId = 3,
+                            Value = "Not Well"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            LookupTypeId = 3,
+                            Value = "Nine"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            LookupTypeId = 3,
+                            Value = "false"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            LookupTypeId = 4,
+                            Value = "Search"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            LookupTypeId = 4,
+                            Value = "Feedback"
+                        },
+                        new
+                        {
+                            Id = 22,
+                            LookupTypeId = 4,
+                            Value = "Register"
+                        });
                 });
 
             modelBuilder.Entity("BloodPlus.Database.Entities.State", b =>

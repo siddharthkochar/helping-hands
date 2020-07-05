@@ -52,6 +52,8 @@ namespace BloodPlus.Database
 
             modelBuilder.ApplyConfiguration(new LookupTypes());
             modelBuilder.ApplyConfiguration(new LookupValues());
+            modelBuilder.ApplyConfiguration(new Countries());
+            modelBuilder.ApplyConfiguration(new DataSeeds.States());
         }
     }
 }

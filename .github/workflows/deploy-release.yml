@@ -8,8 +8,9 @@ jobs:
     name: deploy release
     runs-on: ubuntu-latest
     steps:
-      - name: Cloning repository
-        uses: actions/checkout@release
+      - uses: actions/checkout@v2
+        with:
+          ref: release
 
       - name: Deploying web app to Azure
         uses: azure/webapps-deploy@v2

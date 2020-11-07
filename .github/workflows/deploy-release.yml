@@ -16,7 +16,7 @@ jobs:
         with:
           platform: php
           platform-version: 7.3
-          source-directory: bloodplus/app
+          source-directory: bloodplus/app/*
 
       - name: Deploying web app to Azure
         uses: azure/webapps-deploy@v1

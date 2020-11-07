@@ -8,10 +8,12 @@ jobs:
     name: deploy release
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
         with:
           ref: release
-      - uses: azure/login@v1
+      - name: Login to Azure
+        uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: Deploying web app to Azure

@@ -11,7 +11,9 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: release
-
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: Deploying web app to Azure
         uses: azure/webapps-deploy@v2
         with:

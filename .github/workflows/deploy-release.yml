@@ -9,17 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Cloning repository
-        uses: actions/checkout@v1
-
-      - name: Building web app
-        uses: Azure/appservice-build@v2
-        with:
-          platform: php
-          platform-version: 7.3
-          source-directory: bloodplus/app
+        uses: actions/checkout@release
 
       - name: Deploying web app to Azure
-        uses: azure/webapps-deploy@v1
+        uses: azure/webapps-deploy@v2
         with:
           app-name: bloodplus
           publish-profile: ${{ secrets.AZURE_WEB_APP_PUBLISH_PROFILE }}
+          package: bloodplus/app

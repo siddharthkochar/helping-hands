@@ -8,9 +8,18 @@ jobs:
     name: deploy release
     runs-on: windows-latest
     steps:
-      - uses: Azure/webapps-deploy@v2
-      - name: Deploy
+      - name: Cloning repository
+        uses: actions/checkout@v1
+
+      - name: Building web app
+        uses: Azure/appservice-build@v2
+        with:
+          platform: php
+          platform-version: 7.3
+          source-directory: bloodplus/app
+
+      - name: Deploying web app to Azure
+        uses: azure/webapps-deploy@v1
         with:
           app-name: bloodplus
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: bloodplus/app
+          publish-profile: ${{ secrets.AZURE_WEB_APP_PUBLISH_PROFILE }}

@@ -1,8 +1,7 @@
 name: Azure WebApp
 on:
   push:
-    branches:
-      - release/*
+    branches: [ release ]
 jobs:
   deploy:
     name: deploy release

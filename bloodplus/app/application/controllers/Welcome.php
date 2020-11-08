@@ -23,7 +23,7 @@ class Welcome extends CI_Controller
         			availability,
         			date 
         		FROM 
-        			donor 
+				'.db_schema.'.donor 
         		WHERE
         			availability NOT IN ("Available","Fake","Inappropriate")';
 
@@ -73,7 +73,7 @@ class Welcome extends CI_Controller
 	{
 	   	$data = array('availability' => "Available" ,
 	  					'date' => date("Y-m-d H:i:s"));
-	   	$this->db->where('contact', $contact)->update('donor',$data); 
+	   	$this->db->where(db_schema.'.contact', $contact)->update(db_schema.'.donor',$data); 
 	}
 
 	public function stateList()
@@ -81,7 +81,8 @@ class Welcome extends CI_Controller
         $this->setCORS();
         $this->load->database();
 		$this->db->select('*');
-        $this->db->from('states');
+		$db = db_schema.'.states';
+		$this->db->from($db);
         $query = $this->db->get();
 
         $tem = $query->result_array();
@@ -119,8 +120,9 @@ class Welcome extends CI_Controller
 		$obj = json_decode($content, true);
 		$state_id=$obj[0]['state_id'];
 
+		$db = db_schema.'.cities';
 		$this->db->select('*');
-		$this->db->from('cities');
+		$this->db->from($db);
 		$this->db->where('state_id', $state_id);
 		$query = $this->db->get();
 		$tem = $query->result_array();
@@ -169,7 +171,7 @@ class Welcome extends CI_Controller
 		$group=$obj[0]['group'];
 		$status=$obj[0]['status'];
 
-		$sql=$this->db->query("SELECT contactnumber from persondetail where contactnumber='$contactnumber' and citycode='$citycode' ");
+		$sql=$this->db->query("SELECT contactnumber from ".db_schema.".persondetail where contactnumber='$contactnumber' and citycode='$citycode' ");
 		$counter=0;
 
 		$state_data=[];
@@ -196,7 +198,7 @@ class Welcome extends CI_Controller
 				    'group_name' => $group,
 				    'status'=> $status
 			);
-			$registered	=	$this->db->insert('persondetail',$data);
+			$registered	=	$this->db->insert(db_schema.'.persondetail',$data);
 			
 			if($registered){
 					$status_array = array(
@@ -233,7 +235,7 @@ class Welcome extends CI_Controller
 		$bloodgroup=$obj[0]['bloodgroup'];
 		$contact=$obj[0]['contact'];
 	
-		$sql=$this->db->query("SELECT contact from donor where contact='$contact' and city='$city' ");
+		$sql=$this->db->query("SELECT contact from ".db_schema.".donor where contact='$contact' and city='$city' ");
 		if ($sql->num_rows()>=1)
 		{    
 			$arrayName = array(
@@ -252,7 +254,7 @@ class Welcome extends CI_Controller
 				    'bloodgroup'=>$bloodgroup,
 				    'contact'=>$contact
 			);
-			$registered	= $this->db->insert('donor',$data);
+			$registered	= $this->db->insert(db_schema.'.donor',$data);
 			
 			if($registered) {
 					$status_array = array(
@@ -282,7 +284,7 @@ class Welcome extends CI_Controller
 		$this->db->order_by('id', 'RANDOM');
 		$this->db->limit(1);
 		$this->db->select('*');
-		$this->db->from('persondetail');
+		$this->db->from(db_schema.'.persondetail');
 		$this->db->where('citycode', $citycode);
 		$this->db->where('bloodgroup', $bloodgroup);
 		$this->db->where('status', "Active"); 
@@ -326,7 +328,7 @@ class Welcome extends CI_Controller
 		$this->db->order_by('id', 'RANDOM');
 		$this->db->limit(1);
 		$this->db->select('*');
-		$this->db->from('donor');
+		$this->db->from(db_schema.'.donor');
 		$this->db->where('city', $city);
 		$this->db->where('bloodgroup', $bloodgroup);
 		$this->db->where('availability', "Available"); 
@@ -378,7 +380,7 @@ class Welcome extends CI_Controller
 	       'date' => $date_status 
 	      );
 
-	    $query = $this->db->where('contact', $number)->update('donor',$data); 
+	    $query = $this->db->where(db_schema.'.contact', $number)->update(db_schema.'.donor',$data); 
 
 	    if($query)
 		{
@@ -420,7 +422,7 @@ class Welcome extends CI_Controller
 	       'date' => $date_status 
 	      );
 
-	    $query = $this->db->where('contactnumber', $number)->update('persondetail',$data); 
+	    $query = $this->db->where(db_schema.'.contactnumber', $number)->update(db_schema.'.persondetail',$data); 
 
 	    if($query)
 		{

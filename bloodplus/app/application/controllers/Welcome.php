@@ -10,6 +10,11 @@ require 'lib/SMTP.php';
 
 class Welcome extends CI_Controller 
 {
+	public function heartbeat()
+	{
+		echo "Hello!";
+	}
+	
 	public function index()
 	{
   		$date=date_default_timezone_set("Asia/Kolkata");

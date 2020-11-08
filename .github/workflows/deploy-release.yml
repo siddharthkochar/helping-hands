@@ -5,17 +5,13 @@ on:
     - release
 jobs:
   deploy:
-    name: deploy release
-    runs-on: ubuntu-latest
+    name: deploy website
+    runs-on: windows-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         with:
           ref: release
-      - name: Login to Azure
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: Deploying web app to Azure
         uses: azure/webapps-deploy@v2
         with:

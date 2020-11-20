@@ -13,12 +13,15 @@ jobs:
   deploy:
     name: deploy website
     runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: ./bloodplus/services
+    
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         with:
           ref: release
-
 
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
@@ -27,7 +30,6 @@ jobs:
 
       - name: Restore
         run: dotnet restore
-        working-directory: ./bloodplus/services
 
       - name: Build
         run: dotnet build --no-restore -c Release

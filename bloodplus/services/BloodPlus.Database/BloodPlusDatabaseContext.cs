@@ -15,10 +15,9 @@ namespace BloodPlus.Database
         public DbSet<UserActivityLog> UserActivityLogs { get; set; }
         public DbSet<City> Cities { get; set; }
 
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=bloodplus;Integrated Security=True");
+            optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=bloodplus-v1;Integrated Security=True");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

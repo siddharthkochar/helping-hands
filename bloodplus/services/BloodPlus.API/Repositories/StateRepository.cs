@@ -3,12 +3,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using BloodPlus.Database;
 using BloodPlus.Database.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace BloodPlus.API.Repositories
 {
     public interface IStateRepository
     {
         Task Add(IEnumerable<string> stateNames);
+
+        Task<IEnumerable<State>> GetByCountryAsync(int countryId);
     }
 
     public class StateRepository : BaseRepository, IStateRepository
@@ -27,5 +30,10 @@ namespace BloodPlus.API.Repositories
             await DbContext.States.AddRangeAsync(states);
             await DbContext.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<State>> GetByCountryAsync(int countryId)
+            => await DbContext.States
+                .Where(x => x.CountryId == countryId)
+                .ToListAsync();
     }
 }

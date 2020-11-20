@@ -9,8 +9,8 @@ namespace BloodPlus.API.Repositories
 {
     public interface ICityRepository
     {
-        Task<IEnumerable<City>> GetByState(int stateId);
-        Task Add(IEnumerable<(string city, string state)> data);
+        Task<IEnumerable<City>> GetByStateAsync(int stateId);
+        Task AddAsync(IEnumerable<(string city, string state)> data);
     }
 
     public class CityRepository : BaseRepository, ICityRepository
@@ -23,7 +23,7 @@ namespace BloodPlus.API.Repositories
             _stateRepository = stateRepository;
         }
 
-        public async Task Add(IEnumerable<(string city, string state)> data)
+        public async Task AddAsync(IEnumerable<(string city, string state)> data)
         {
             await _stateRepository.Add(data.Select(x => x.state).Distinct());
 
@@ -37,7 +37,7 @@ namespace BloodPlus.API.Repositories
             await DbContext.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<City>> GetByState(int stateId)
+        public async Task<IEnumerable<City>> GetByStateAsync(int stateId)
             => await DbContext.Cities
                 .Where(x => x.StateId == stateId)
                 .ToListAsync();

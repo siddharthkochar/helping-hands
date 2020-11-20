@@ -22,11 +22,11 @@ namespace BloodPlus.API.Controllers
             _cityRepository = cityRepository;
         }
 
-        [HttpGet("{stateId}")]
-        public async Task<IEnumerable<CityDto>> Get(int stateId)
+        [HttpGet("[action]/{stateId}")]
+        public async Task<IEnumerable<CityDto.Response>> ForStateAsync(int stateId)
         {
-            var cities = await _cityRepository.GetByState(stateId);
-            return _mapper.Map<IEnumerable<CityDto>>(cities);
+            var cities = await _cityRepository.GetByStateAsync(stateId);
+            return _mapper.Map<IEnumerable<CityDto.Response>>(cities);
         }
     }
 }

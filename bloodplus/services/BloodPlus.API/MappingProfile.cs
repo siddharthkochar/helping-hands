@@ -8,8 +8,7 @@ namespace BloodPlus.API
     {
         public MappingProfile()
         {
-            CreateMap<Country, CountryDto>().ReverseMap();
-            CreateMap<City, CityDto>().ReverseMap();
+            CreateMap<City, CityDto.Response>().ReverseMap();
         }
     }
 }

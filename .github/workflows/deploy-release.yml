@@ -3,6 +3,12 @@ on:
   push:
     branches:
     - release
+
+env:
+  AZURE_WEBAPP_NAME: your-app-name    # set this to your application's name
+  AZURE_WEBAPP_PACKAGE_PATH: './published'      # set this to the path to your web app project, defaults to the repository root
+  DOTNET_VERSION: '3.1.x'             # set this to the dot net version to use
+
 jobs:
   deploy:
     name: deploy website
@@ -16,17 +22,20 @@ jobs:
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '3.1.x'
+          dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      - name: dotnet build and publish
-        run: |
-          dotnet restore
-          dotnet build bloodplus.sln --configuration Release
-          dotnet publish -c Release -o 'bloodplus/app'
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore -c Release
+      
+      - name: Publish
+        run: dotnet publish --no-build -c Release -o '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
 
       - name: Deploying web app to Azure
         uses: azure/webapps-deploy@v2
         with:
           app-name: bloodplus
           publish-profile: ${{ secrets.AZURE_WEB_APP_PUBLISH_PROFILE }}
-          package: bloodplus/app
+          package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'

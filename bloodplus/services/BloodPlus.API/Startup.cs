@@ -3,6 +3,7 @@ using BloodPlus.API.Repositories;
 using BloodPlus.Database;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,11 +24,11 @@ namespace BloodPlus.API
         {
             services.AddControllers();
             services.AddAutoMapper(typeof(MappingProfile));
-            services.AddTransient<BloodPlusDatabaseContext>();
             services.AddScoped<ICountryRepository, CountryRepository>();
             services.AddScoped<ICityRepository, CityRepository>();
             services.AddScoped<IStateRepository, StateRepository>();
             services.AddScoped<IDonorRepository, DonorRepository>();
+            services.AddDbContext<BloodPlusDatabaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("BloodPlus")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

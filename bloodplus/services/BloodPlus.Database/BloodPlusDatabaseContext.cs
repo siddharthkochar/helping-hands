@@ -1,11 +1,16 @@
 ﻿using BloodPlus.Database.DataSeeds;
 using BloodPlus.Database.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace BloodPlus.Database
 {
     public class BloodPlusDatabaseContext : DbContext
     {
+        public BloodPlusDatabaseContext(DbContextOptions<BloodPlusDatabaseContext> options) : base(options)
+        {
+        }
+
         public DbSet<Country> Countries { get; set; }
         public DbSet<Donor> Donors { get; set; }
         public DbSet<DonorCity> DonorCities { get; set; }
@@ -14,11 +19,6 @@ namespace BloodPlus.Database
         public DbSet<State> States { get; set; }
         public DbSet<UserActivityLog> UserActivityLogs { get; set; }
         public DbSet<City> Cities { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=bloodplus-v1;Integrated Security=True");
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

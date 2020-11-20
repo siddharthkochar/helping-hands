@@ -19,8 +19,6 @@ jobs:
         with:
           ref: release
 
-      - name: Change working directory
-        working-directory: ./bloodplus/services
 
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
@@ -29,6 +27,7 @@ jobs:
 
       - name: Restore
         run: dotnet restore
+        working-directory: ./bloodplus/services
 
       - name: Build
         run: dotnet build --no-restore -c Release

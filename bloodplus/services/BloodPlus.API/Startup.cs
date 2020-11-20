@@ -27,6 +27,7 @@ namespace BloodPlus.API
             services.AddScoped<ICountryRepository, CountryRepository>();
             services.AddScoped<ICityRepository, CityRepository>();
             services.AddScoped<IStateRepository, StateRepository>();
+            services.AddScoped<IDonorRepository, DonorRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

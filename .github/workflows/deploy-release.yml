@@ -12,7 +12,7 @@ env:
 
 jobs:
   deploy:
-    name: deploy website
+    name: Deploy BloodPlus Service
     runs-on: windows-latest    
     steps:
       - name: Checkout
@@ -37,12 +37,12 @@ jobs:
         run: dotnet publish --no-build -c Release -o '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
         working-directory: ${{ env.WORKING_DIR }}
         
-      - name: Login to Azure
+      - name: Authorize
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Deploying web app to Azure
+      - name: Deploy
         uses: azure/webapps-deploy@v2
         with:
           app-name: bloodplus

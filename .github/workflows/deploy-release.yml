@@ -24,6 +24,9 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
+      - name: Finding APIs
+        run: cd bloodplus/services
+        
       - name: Restore
         run: dotnet restore
 

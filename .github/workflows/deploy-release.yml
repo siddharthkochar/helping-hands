@@ -21,7 +21,7 @@ jobs:
       - name: dotnet build and publish
         run: |
           dotnet restore
-          dotnet build --configuration Release
+          dotnet build bloodplus.sln --configuration Release
           dotnet publish -c Release -o 'bloodplus/app'
 
       - name: Deploying web app to Azure

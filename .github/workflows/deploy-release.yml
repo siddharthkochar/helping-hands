@@ -19,14 +19,14 @@ jobs:
         with:
           ref: release
 
+      - name: Change working directory
+        working-directory: ./bloodplus/services
+
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      - name: Finding APIs
-        run: cd bloodplus/services
-        
       - name: Restore
         run: dotnet restore
 

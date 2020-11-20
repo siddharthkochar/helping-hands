@@ -9,12 +9,12 @@ namespace BloodPlus.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CityController : ControllerBase
+    public class CitiesController : ControllerBase
     {
         private readonly IMapper _mapper;
         private readonly ICityRepository _cityRepository;
 
-        public CityController(
+        public CitiesController(
             IMapper mapper,
             ICityRepository cityRepository)
         {

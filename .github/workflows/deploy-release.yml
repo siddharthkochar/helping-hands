@@ -3,6 +3,8 @@ on:
   push:
     branches:
     - release
+    paths:
+    - bloodplus/services/**
 
 env:
   AZURE_WEBAPP_NAME: your-app-name

@@ -20,9 +20,9 @@ namespace BloodPlus.API.Controllers
         }
 
         [HttpGet]
-        public async Task<DonorDto.Response> Get([FromQuery] DonorDto.Request request)
+        public async Task<DonorDto.Response> Get([FromQuery] int cityId, [FromQuery] string bloodGroup)
         {
-            var donor = await _donorRepository.GetAsync(request);
+            var donor = await _donorRepository.GetAsync(cityId, bloodGroup);
             return _mapper.Map<DonorDto.Response>(donor);
         }
     }

@@ -1,4 +1,4 @@
-name: Azure WebApp
+name: Deploy BloodPlus Service
 on:
   push:
     branches:

@@ -19,8 +19,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        run: git switch release
-        run: git checkout bloodplus/services
+        run: |
+          git switch release
+          git checkout bloodplus/services
 
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1

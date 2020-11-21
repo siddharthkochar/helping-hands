@@ -3,8 +3,8 @@ on:
   push:
     branches:
     - release
-    # paths:
-    # - bloodplus/services/**
+    paths:
+    - bloodplus/services/**
 
 env:
   AZURE_WEBAPP_NAME: your-app-name
@@ -19,9 +19,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        run: |
-          git switch release
-          git checkout bloodplus/services
+        with:
+          ref: release
 
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
@@ -30,15 +29,15 @@ jobs:
 
       - name: Restore
         run: dotnet restore
-        # working-directory: ${{ env.WORKING_DIR }}
+        working-directory: ${{ env.WORKING_DIR }}
 
       - name: Build
         run: dotnet build --no-restore -c Release
-        # working-directory: ${{ env.WORKING_DIR }}
+        working-directory: ${{ env.WORKING_DIR }}
       
       - name: Publish
         run: dotnet publish --no-build -c Release -o '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
-        # working-directory: ${{ env.WORKING_DIR }}
+        working-directory: ${{ env.WORKING_DIR }}
         
       - name: Authorize
         uses: azure/login@v1
@@ -50,4 +49,4 @@ jobs:
         with:
           app-name: bloodplus
           publish-profile: ${{ secrets.AZURE_WEB_APP_PUBLISH_PROFILE }}
-          package: './published'
+          package: './bloodplus/services/published'

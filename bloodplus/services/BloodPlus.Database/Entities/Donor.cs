@@ -13,7 +13,8 @@ namespace BloodPlus.Database.Entities
         public int StatusId { get; set; }
         [Required]
         public int Age { get; set; }
-        public DateTime? BirthDate { get; set; }
+        [Required]
+        public DateTime BirthDate { get; set; }
         [Required]
         public string Contact { get; set; }
     }

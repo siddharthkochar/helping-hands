@@ -11,7 +11,7 @@ namespace BloodPlus.API.Models
             public string Contact { get; set; }
             public DateTime BirthDate { get; set; }
             public int CityId { get; set; }
-            public int StateId { get; set; }
+            public int StatusId { get; set; }
             public int GenderId { get; set; }
             public int BloodGroupId { get; set; }
         }

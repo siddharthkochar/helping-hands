@@ -25,5 +25,11 @@ namespace BloodPlus.API.Controllers
             var donor = await _donorRepository.GetAsync(cityId, bloodGroup);
             return _mapper.Map<DonorDto.Response>(donor);
         }
+
+        [HttpPost]
+        public async Task Post(DonorDto.Request request)
+        {
+            await _donorRepository.AddAsync(request);
+        }
     }
 }

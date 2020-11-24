@@ -31,9 +31,21 @@ namespace BloodPlus.API.Repositories
 
             return Task.FromResult(donors);
         }
-        public Task AddAsync(DonorDto.Request request)
+        public async Task AddAsync(DonorDto.Request request)
         {
-            return Task.CompletedTask;
+            var donor = new Donor
+            {
+                Contact = request.Contact,
+                Cities = DbContext.Cities.Where(x => x.Id == request.CityId).ToList(),
+                BirthDate = request.BirthDate,
+                BloodGroupId = request.BloodGroupId,
+                GenderId = request.GenderId,
+                Name = $"{request.FirstName} {request.LastName}",
+                StatusId = request.StatusId
+            };
+
+            await DbContext.Donors.AddAsync(donor);
+            await DbContext.SaveChangesAsync();
         }
     }
 }

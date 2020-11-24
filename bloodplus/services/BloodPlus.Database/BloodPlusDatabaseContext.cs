@@ -13,7 +13,6 @@ namespace BloodPlus.Database
 
         public DbSet<Country> Countries { get; set; }
         public DbSet<Donor> Donors { get; set; }
-        public DbSet<DonorCity> DonorCities { get; set; }
         public DbSet<LookupType> LookupTypes { get; set; }
         public DbSet<LookupValue> LookupValues { get; set; }
         public DbSet<State> States { get; set; }
@@ -40,10 +39,6 @@ namespace BloodPlus.Database
 
             modelBuilder.Entity<Donor>()
                 .HasIndex(x => x.Contact)
-                .IsUnique();
-
-            modelBuilder.Entity<DonorCity>()
-                .HasIndex(x => new {x.DonorId, x.CityId})
                 .IsUnique();
 
             modelBuilder.Entity<UserActivityLog>()

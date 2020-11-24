@@ -1,7 +1,7 @@
-﻿using BloodPlus.Database;
+﻿using BloodPlus.API.Models;
+using BloodPlus.Database;
 using BloodPlus.Database.Entities;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,6 +10,8 @@ namespace BloodPlus.API.Repositories
     public interface IDonorRepository
     {
         Task<Donor> GetAsync(int cityId, string bloodGroup);
+
+        Task AddAsync(DonorDto.Request request);
     }
 
     public class DonorRepository : BaseRepository, IDonorRepository
@@ -21,14 +23,17 @@ namespace BloodPlus.API.Repositories
         public Task<Donor> GetAsync(int cityId, string bloodGroup)
         {
             var donors = (from d in DbContext.Donors
-                         join dc in DbContext.DonorCities on d.Id equals dc.DonorId
-                         let bloodGroupValue = DbContext.LookupValues
-                            .First(x => x.LookupTypeId == 2 && x.Value == bloodGroup)
-                         where d.BloodGroupId == bloodGroupValue.Id && dc.CityId == cityId
-                         orderby Guid.NewGuid()
-                         select d).First();
+                       let bloodGroupValue = DbContext.LookupValues
+                               .First(x => x.LookupTypeId == 2 && x.Value == bloodGroup)
+                       where d.BloodGroupId == bloodGroupValue.Id && d.Cities.Any(c => c.Id == cityId)
+                       orderby Guid.NewGuid()
+                       select d).First();
 
             return Task.FromResult(donors);
+        }
+        public Task AddAsync(DonorDto.Request request)
+        {
+            return Task.CompletedTask;
         }
     }
 }

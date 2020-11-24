@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace BloodPlus.Database.Entities
@@ -15,5 +16,7 @@ namespace BloodPlus.Database.Entities
         public DateTime BirthDate { get; set; }
         [Required]
         public string Contact { get; set; }
+
+        public ICollection<City> Cities { get; set; }
     }
 }

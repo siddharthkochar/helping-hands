@@ -1,11 +1,9 @@
-﻿using BloodPlus.API.Models;
-using BloodPlus.Database;
+﻿using BloodPlus.Database;
 using BloodPlus.Database.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace BloodPlus.API.Repositories
 {

@@ -27,7 +27,7 @@ namespace BloodPlus.API.Repositories
                                .First(x => x.LookupTypeId == 2 && x.Value == bloodGroup)
                        where d.BloodGroupId == bloodGroupValue.Id && d.Cities.Any(c => c.Id == cityId)
                        orderby Guid.NewGuid()
-                       select d).First();
+                       select d).FirstOrDefault();
 
             return Task.FromResult(donors);
         }

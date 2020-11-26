@@ -9,7 +9,7 @@ namespace BloodPlus.API.Repositories
 {
     public interface IDonorRepository
     {
-        Task<Donor> GetAsync(int cityId, string bloodGroup);
+        Task<Donor> GetAsync(int cityId, int bloodGroupId);
 
         Task AddAsync(DonorDto.Request request);
     }
@@ -20,12 +20,10 @@ namespace BloodPlus.API.Repositories
         {
         }
 
-        public Task<Donor> GetAsync(int cityId, string bloodGroup)
+        public Task<Donor> GetAsync(int cityId, int bloodGroupId)
         {
             var donors = (from d in DbContext.Donors
-                       let bloodGroupValue = DbContext.LookupValues
-                               .First(x => x.LookupTypeId == 2 && x.Value == bloodGroup)
-                       where d.BloodGroupId == bloodGroupValue.Id && d.Cities.Any(c => c.Id == cityId)
+                       where d.BloodGroupId == bloodGroupId && d.Cities.Any(c => c.Id == cityId)
                        orderby Guid.NewGuid()
                        select d).FirstOrDefault();
 

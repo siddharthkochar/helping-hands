@@ -27,7 +27,7 @@ namespace BloodPlus.API.Controllers
         }
 
         [HttpPost]
-        public async Task Post(DonorDto.Request request)
+        public async Task Post([FromBody] DonorDto.Request request)
         {
             await _donorRepository.AddAsync(request);
         }

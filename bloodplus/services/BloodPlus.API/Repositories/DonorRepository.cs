@@ -40,7 +40,8 @@ namespace BloodPlus.API.Repositories
                 BirthDate = request.BirthDate,
                 BloodGroupId = request.BloodGroupId,
                 GenderId = request.GenderId,
-                Name = $"{request.FirstName} {request.LastName}",
+                FirstName = request.FirstName,
+                LastName = request.LastName,
                 StatusId = request.StatusId
             };
 

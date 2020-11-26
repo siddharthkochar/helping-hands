@@ -28,6 +28,7 @@ namespace BloodPlus.API
             services.AddScoped<ICityRepository, CityRepository>();
             services.AddScoped<IStateRepository, StateRepository>();
             services.AddScoped<IDonorRepository, DonorRepository>();
+            services.AddScoped<ILookupRepository, LookupRepository>();
             services.AddDbContext<BloodPlusDatabaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("BloodPlus")));
         }
 

@@ -20,7 +20,7 @@ namespace BloodPlus.API.Controllers
         [HttpGet]
         public async Task<IEnumerable<LookupDto.Reponse>> Get()
         {
-            return await _lookupRepository.GetValuesByType();
+            return await _lookupRepository.GetValues();
         }
     }
 }

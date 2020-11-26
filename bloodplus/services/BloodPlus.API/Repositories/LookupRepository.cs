@@ -9,7 +9,7 @@ namespace BloodPlus.API.Repositories
 {
     public interface ILookupRepository
     {
-        Task<IEnumerable<LookupDto.Reponse>> GetValuesByType();
+        Task<IEnumerable<LookupDto.Reponse>> GetValues();
     }
 
     public class LookupRepository : BaseRepository, ILookupRepository
@@ -18,7 +18,7 @@ namespace BloodPlus.API.Repositories
         {
         }
 
-        public async Task<IEnumerable<LookupDto.Reponse>> GetValuesByType() 
+        public async Task<IEnumerable<LookupDto.Reponse>> GetValues() 
             => await DbContext.LookupValues
                 .Select(x => new LookupDto.Reponse
                 {

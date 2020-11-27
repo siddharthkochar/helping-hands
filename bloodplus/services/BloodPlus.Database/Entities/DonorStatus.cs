@@ -7,6 +7,6 @@ namespace BloodPlus.Database.Entities
         [Key]
         public int Id { get; set; }
         public string Status { get; set; }
-        public int UnavailableForDays { get; set; }
+        public int? UnavailableForDays { get; set; }
     }
 }

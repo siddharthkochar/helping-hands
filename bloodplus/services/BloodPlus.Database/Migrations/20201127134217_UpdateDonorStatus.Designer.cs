@@ -4,14 +4,16 @@ using BloodPlus.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BloodPlus.Database.Migrations
 {
     [DbContext(typeof(BloodPlusDatabaseContext))]
-    partial class BloodPlusDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20201127134217_UpdateDonorStatus")]
+    partial class UpdateDonorStatus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -141,8 +143,7 @@ namespace BloodPlus.Database.Migrations
                         new
                         {
                             Id = 2,
-                            Status = "Verification needed",
-                            UnavailableForDays = 36500
+                            Status = "Verification needed"
                         },
                         new
                         {

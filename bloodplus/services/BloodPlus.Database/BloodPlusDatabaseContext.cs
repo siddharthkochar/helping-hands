@@ -1,7 +1,6 @@
 ﻿using BloodPlus.Database.DataSeeds;
 using BloodPlus.Database.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
 namespace BloodPlus.Database
 {

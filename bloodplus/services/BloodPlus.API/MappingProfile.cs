@@ -11,7 +11,8 @@ namespace BloodPlus.API
             CreateMap<City, CityDto.Response>().ReverseMap();
             CreateMap<State, StateDto.Response>().ReverseMap();
             CreateMap<Donor, DonorDto.Response>().ReverseMap();
-            CreateMap<LookupValue, LookupDto.Reponse>().ReverseMap();
+            CreateMap<LookupValue, LookupDto.Response>().ReverseMap();
+            CreateMap<DonorStatus, DonorStatusDto.Response>().ReverseMap();
         }
     }
 }

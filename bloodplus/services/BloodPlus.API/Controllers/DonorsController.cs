@@ -31,5 +31,18 @@ namespace BloodPlus.API.Controllers
         {
             await _donorRepository.AddAsync(request);
         }
+
+        [HttpPatch]
+        public async Task<IActionResult> PatchAsync([FromQuery] int id, [FromQuery] int statusId)
+        {
+            var result = await _donorRepository.UpdateStatusAsync(id, statusId);
+
+            if (result)
+            {
+                return Ok();
+            }
+
+            return BadRequest();
+        }
     }
 }

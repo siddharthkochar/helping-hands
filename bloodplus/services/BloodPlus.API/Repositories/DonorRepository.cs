@@ -13,6 +13,8 @@ namespace BloodPlus.API.Repositories
         Task<Donor> GetAsync(int cityId, int bloodGroupId);
 
         Task AddAsync(DonorDto.Request request);
+
+        Task<bool> UpdateStatusAsync(int donorId, int statusId);
     }
 
     public class DonorRepository : BaseRepository, IDonorRepository
@@ -21,14 +23,12 @@ namespace BloodPlus.API.Repositories
         {
         }
 
-        public Task<Donor> GetAsync(int cityId, int bloodGroupId)
+        public async Task<Donor> GetAsync(int cityId, int bloodGroupId)
         {
-            var donors = (from d in DbContext.Donors
-                       where d.BloodGroupId == bloodGroupId && d.Cities.Any(c => c.Id == cityId)
-                       orderby Guid.NewGuid()
-                       select d).FirstOrDefault();
-
-            return Task.FromResult(donors);
+            return await DbContext.Donors
+                .Where(x => x.BloodGroupId == bloodGroupId && x.Cities.Any(c => c.Id == cityId))
+                .OrderBy(x => Guid.NewGuid())
+                .FirstOrDefaultAsync();
         }
 
         public async Task AddAsync(DonorDto.Request request)
@@ -63,6 +63,19 @@ namespace BloodPlus.API.Repositories
                 donor.Cities.Add(cityToAdd);
                 await DbContext.SaveChangesAsync();
             }
+        }
+
+        public async Task<bool> UpdateStatusAsync(int donorId, int statusId)
+        {
+            var donor = await DbContext.Donors.FirstAsync(x => x.Id == donorId);
+
+            if (donor == null)
+                return false;
+
+            var status = await DbContext.DonorStatus.FirstAsync(x => x.Id == statusId);
+            donor.UnavailableTill = DateTime.Now.AddDays(status.UnavailableForDays);
+            var updatedRows = await DbContext.SaveChangesAsync();
+            return updatedRows > 0;
         }
     }
 }

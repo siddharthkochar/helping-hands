@@ -1,6 +1,7 @@
 ﻿using BloodPlus.API.Models;
 using BloodPlus.Database;
 using BloodPlus.Database.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -32,20 +33,36 @@ namespace BloodPlus.API.Repositories
 
         public async Task AddAsync(DonorDto.Request request)
         {
-            var donor = new Donor
-            {
-                Contact = request.Contact,
-                Cities = DbContext.Cities.Where(x => x.Id == request.CityId).ToList(),
-                BirthDate = request.BirthDate,
-                BloodGroupId = request.BloodGroupId,
-                GenderId = request.GenderId,
-                FirstName = request.FirstName,
-                LastName = request.LastName,
-                DonorStatus = DbContext.DonorStatus.First(x => x.Id == request.StatusId)
-            };
+            var donor = DbContext.Donors
+                .Include(x => x.Cities)
+                .FirstOrDefault(x => x.Contact == request.Contact);
 
-            await DbContext.Donors.AddAsync(donor);
-            await DbContext.SaveChangesAsync();
+            if (donor == null)
+            {
+                await DbContext.Donors.AddAsync(new Donor
+                {
+                    Contact = request.Contact,
+                    Cities = DbContext.Cities.Where(x => x.Id == request.CityId).ToList(),
+                    BirthDate = request.BirthDate,
+                    BloodGroupId = request.BloodGroupId,
+                    GenderId = request.GenderId,
+                    FirstName = request.FirstName,
+                    LastName = request.LastName,
+                    DonorStatus = DbContext.DonorStatus.First(x => x.Id == request.StatusId)
+                });
+
+                await DbContext.SaveChangesAsync();
+                return;
+            }
+
+            var cityExists = donor.Cities.Any(x => x.Id == request.CityId);
+
+            if (!cityExists)
+            {
+                var cityToAdd = await DbContext.Cities.FirstAsync(x => x.Id == request.CityId);
+                donor.Cities.Add(cityToAdd);
+                await DbContext.SaveChangesAsync();
+            }
         }
     }
 }

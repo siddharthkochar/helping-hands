@@ -51,7 +51,7 @@ namespace BloodPlus.API.Repositories
                     GenderId = request.GenderId,
                     FirstName = request.FirstName,
                     LastName = request.LastName,
-                    DonorStatus = DbContext.DonorStatus.First(x => x.Id == request.StatusId)
+                    DonorStatus = DbContext.DonorStatus.FirstOrDefault(x => x.Id == request.StatusId)
                 });
 
                 await DbContext.SaveChangesAsync();
@@ -62,7 +62,7 @@ namespace BloodPlus.API.Repositories
 
             if (!cityExists)
             {
-                var cityToAdd = await DbContext.Cities.FirstAsync(x => x.Id == request.CityId);
+                var cityToAdd = await DbContext.Cities.FirstOrDefaultAsync(x => x.Id == request.CityId);
                 donor.Cities.Add(cityToAdd);
                 await DbContext.SaveChangesAsync();
             }
@@ -70,12 +70,15 @@ namespace BloodPlus.API.Repositories
 
         public async Task<bool> UpdateStatusAsync(int donorId, int statusId)
         {
-            var donor = await DbContext.Donors.FirstAsync(x => x.Id == donorId);
+            var donor = await DbContext.Donors.FirstOrDefaultAsync(x => x.Id == donorId);
 
             if (donor == null)
                 return false;
 
-            var status = await DbContext.DonorStatus.FirstAsync(x => x.Id == statusId);
+            var status = await DbContext.DonorStatus.FirstOrDefaultAsync(x => x.Id == statusId);
+
+            if (status == null)
+                return false;
 
             donor.DonorStatus = status;
             donor.UnavailableTill = statusId == 1

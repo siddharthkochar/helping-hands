@@ -26,7 +26,10 @@ namespace BloodPlus.API.Repositories
         public async Task<Donor> GetAsync(int cityId, int bloodGroupId)
         {
             return await DbContext.Donors
-                .Where(x => x.BloodGroupId == bloodGroupId && x.Cities.Any(c => c.Id == cityId))
+                .Where(x =>
+                    x.BloodGroupId == bloodGroupId
+                    && (x.UnavailableTill == null || x.UnavailableTill < DateTime.Now.Date)
+                    && x.Cities.Any(c => c.Id == cityId))
                 .OrderBy(x => Guid.NewGuid())
                 .FirstOrDefaultAsync();
         }
@@ -73,7 +76,12 @@ namespace BloodPlus.API.Repositories
                 return false;
 
             var status = await DbContext.DonorStatus.FirstAsync(x => x.Id == statusId);
-            donor.UnavailableTill = DateTime.Now.AddDays(status.UnavailableForDays);
+
+            donor.DonorStatus = status;
+            donor.UnavailableTill = statusId == 1
+                ? null
+                : (DateTime?)DateTime.Now.AddDays(status.UnavailableForDays.Value + 1).Date;
+
             var updatedRows = await DbContext.SaveChangesAsync();
             return updatedRows > 0;
         }

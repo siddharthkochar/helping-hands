@@ -18,6 +18,7 @@ namespace BloodPlus.Database
         public DbSet<State> States { get; set; }
         public DbSet<UserActivityLog> UserActivityLogs { get; set; }
         public DbSet<City> Cities { get; set; }
+        public DbSet<DonorStatus> DonorStatus { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -37,6 +38,10 @@ namespace BloodPlus.Database
                 .HasIndex(x => new {x.LookupTypeId, x.Value})
                 .IsUnique();
 
+            modelBuilder.Entity<LookupType>()
+                .HasIndex(x => x.Name)
+                .IsUnique();
+
             modelBuilder.Entity<Donor>()
                 .HasIndex(x => x.Contact)
                 .IsUnique();
@@ -44,9 +49,14 @@ namespace BloodPlus.Database
             modelBuilder.Entity<UserActivityLog>()
                 .HasNoKey();
 
+            modelBuilder.Entity<DonorStatus>()
+                .HasIndex(x => x.Status)
+                .IsUnique();
+
             modelBuilder.ApplyConfiguration(new LookupTypes());
             modelBuilder.ApplyConfiguration(new LookupValues());
             modelBuilder.ApplyConfiguration(new Countries());
+            modelBuilder.ApplyConfiguration(new DonorStatuses());
         }
     }
 }

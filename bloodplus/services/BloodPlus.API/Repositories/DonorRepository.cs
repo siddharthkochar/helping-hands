@@ -29,6 +29,7 @@ namespace BloodPlus.API.Repositories
 
             return Task.FromResult(donors);
         }
+
         public async Task AddAsync(DonorDto.Request request)
         {
             var donor = new Donor
@@ -40,7 +41,7 @@ namespace BloodPlus.API.Repositories
                 GenderId = request.GenderId,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
-                StatusId = request.StatusId
+                DonorStatus = DbContext.DonorStatus.First(x => x.Id == request.StatusId)
             };
 
             await DbContext.Donors.AddAsync(donor);

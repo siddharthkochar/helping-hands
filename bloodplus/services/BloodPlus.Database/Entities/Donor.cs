@@ -19,12 +19,12 @@ namespace BloodPlus.Database.Entities
         [Required]
         public int BloodGroupId { get; set; }
         [Required]
-        public int StatusId { get; set; }
-        [Required]
         public DateTime BirthDate { get; set; }
         [Required]
         public string Contact { get; set; }
+        public DateTime? UnavailableTill { get; set; }
 
+        public DonorStatus DonorStatus { get; set; }
         public ICollection<City> Cities { get; set; }
     }
 }

@@ -4,14 +4,16 @@ using BloodPlus.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BloodPlus.Database.Migrations
 {
     [DbContext(typeof(BloodPlusDatabaseContext))]
-    partial class BloodPlusDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20201127081518_RemoveUnwantedLookupValues")]
+    partial class RemoveUnwantedLookupValues
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -84,9 +86,6 @@ namespace BloodPlus.Database.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("DonorStatusId")
-                        .HasColumnType("int");
-
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -98,77 +97,15 @@ namespace BloodPlus.Database.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("UnavailableTill")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("StatusId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("Contact")
                         .IsUnique();
 
-                    b.HasIndex("DonorStatusId");
-
                     b.ToTable("Donors");
-                });
-
-            modelBuilder.Entity("BloodPlus.Database.Entities.DonorStatus", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("UnavailableForDays")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Status")
-                        .IsUnique()
-                        .HasFilter("[Status] IS NOT NULL");
-
-                    b.ToTable("DonorStatus");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Status = "Available",
-                            UnavailableForDays = 0
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Status = "Verification needed",
-                            UnavailableForDays = 36500
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Status = "Unreachable",
-                            UnavailableForDays = 1
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Status = "Unwell",
-                            UnavailableForDays = 7
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Status = "Donated",
-                            UnavailableForDays = 120
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Status = "Out of station",
-                            UnavailableForDays = 7
-                        });
                 });
 
             modelBuilder.Entity("BloodPlus.Database.Entities.LookupType", b =>
@@ -180,12 +117,9 @@ namespace BloodPlus.Database.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
 
                     b.ToTable("LookupTypes");
 
@@ -356,15 +290,6 @@ namespace BloodPlus.Database.Migrations
                         .IsRequired();
 
                     b.Navigation("State");
-                });
-
-            modelBuilder.Entity("BloodPlus.Database.Entities.Donor", b =>
-                {
-                    b.HasOne("BloodPlus.Database.Entities.DonorStatus", "DonorStatus")
-                        .WithMany()
-                        .HasForeignKey("DonorStatusId");
-
-                    b.Navigation("DonorStatus");
                 });
 
             modelBuilder.Entity("BloodPlus.Database.Entities.LookupValue", b =>

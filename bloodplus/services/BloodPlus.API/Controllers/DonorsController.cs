@@ -37,12 +37,12 @@ namespace BloodPlus.API.Controllers
         {
             var result = await _donorRepository.UpdateStatusAsync(id, statusId);
 
-            if (result)
+            if (result.IsSuccess)
             {
-                return Ok();
+                return Ok(result.Value);
             }
 
-            return BadRequest();
+            return BadRequest(result.Value);
         }
     }
 }

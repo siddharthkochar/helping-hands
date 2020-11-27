@@ -1,4 +1,5 @@
-﻿using BloodPlus.API.Models;
+﻿using BloodPlus.API.CustomResponse;
+using BloodPlus.API.Models;
 using BloodPlus.Database;
 using BloodPlus.Database.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +15,7 @@ namespace BloodPlus.API.Repositories
 
         Task AddAsync(DonorDto.Request request);
 
-        Task<bool> UpdateStatusAsync(int donorId, int statusId);
+        Task<ApiResponse> UpdateStatusAsync(int donorId, int statusId);
     }
 
     public class DonorRepository : BaseRepository, IDonorRepository
@@ -68,25 +69,21 @@ namespace BloodPlus.API.Repositories
             }
         }
 
-        public async Task<bool> UpdateStatusAsync(int donorId, int statusId)
+        public async Task<ApiResponse> UpdateStatusAsync(int donorId, int statusId)
         {
-            var donor = await DbContext.Donors.FirstOrDefaultAsync(x => x.Id == donorId);
+            var donor = await DbContext.Donors
+                .FirstOrDefaultAsync(x => x.Id == donorId && x.DonorStatus.Id == statusId);
 
             if (donor == null)
-                return false;
-
-            var status = await DbContext.DonorStatus.FirstOrDefaultAsync(x => x.Id == statusId);
-
-            if (status == null)
-                return false;
-
-            donor.DonorStatus = status;
+                return new ApiBadResponse("Invalid Donor or Status");
+                
+            donor.DonorStatus = donor.DonorStatus;
             donor.UnavailableTill = statusId == 1
                 ? null
-                : (DateTime?)DateTime.Now.AddDays(status.UnavailableForDays.Value + 1).Date;
+                : (DateTime?)DateTime.Now.AddDays(donor.DonorStatus.UnavailableForDays.Value + 1).Date;
 
-            var updatedRows = await DbContext.SaveChangesAsync();
-            return updatedRows > 0;
+            await DbContext.SaveChangesAsync();
+            return new ApiOkResponse(true);
         }
     }
 }

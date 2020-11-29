@@ -40,6 +40,8 @@ namespace BloodPlus.API
             {
                 app.UseDeveloperExceptionPage();
             }
+            
+            app.UseExceptionHandler("/error");
 
             app.UseHttpsRedirection();
 

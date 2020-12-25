@@ -1,4 +1,4 @@
-﻿namespace BloodPlus.API.CustomResponse
+﻿namespace BloodPlus.Utility.CustomResponse
 {
     public class ApiBadResponse : ApiResponse
     {

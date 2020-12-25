@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BloodPlus.API.Constants;
 using BloodPlus.Database;
 using BloodPlus.Database.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ namespace BloodPlus.API.Repositories
     {
         Task<IEnumerable<City>> GetByStateAsync(int stateId);
         Task AddAsync(IEnumerable<(string city, string state)> data);
+        Task<string> GetRepresentative(int cityId, int stateId);
     }
 
     public class CityRepository : BaseRepository, ICityRepository
@@ -41,5 +43,14 @@ namespace BloodPlus.API.Repositories
             => await DbContext.Cities
                 .Where(x => x.StateId == stateId)
                 .ToListAsync();
+
+        public async Task<string> GetRepresentative(int cityId, int stateId)
+        {
+            var city = await DbContext.Cities
+                .Include(x => x.State)
+                .FirstOrDefaultAsync(x => x.Id == cityId && x.StateId == stateId);
+
+            return CityRepresentative.Get(city.Name, city.State.Name);
+        }
     }
 }

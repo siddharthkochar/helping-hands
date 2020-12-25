@@ -28,5 +28,9 @@ namespace BloodPlus.API.Controllers
             var cities = await _cityRepository.GetByStateAsync(stateId);
             return _mapper.Map<IEnumerable<CityDto.Response>>(cities);
         }
+
+        [HttpGet("representative")]
+        public async Task<string> Representative([FromQuery] int cityId, [FromQuery] int stateId)
+            => await _cityRepository.GetRepresentative(cityId, stateId);
     }
 }

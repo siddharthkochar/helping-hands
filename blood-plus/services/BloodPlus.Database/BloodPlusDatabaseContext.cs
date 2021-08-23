@@ -1,6 +1,7 @@
 ﻿using BloodPlus.Database.DataSeeds;
 using BloodPlus.Database.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace BloodPlus.Database
 {
@@ -18,11 +19,24 @@ namespace BloodPlus.Database
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=bloodplus;Integrated Security=True");
+            optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=bloodplus-v1;Integrated Security=True");
+        }
+
+        private void RemoveAllCascade(ModelBuilder modelBuilder)
+        {
+            var cascadeFKs = modelBuilder.Model.GetEntityTypes()
+                .SelectMany(t => t.GetForeignKeys())
+                .Where(fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade);
+
+            foreach (var fk in cascadeFKs)
+                fk.DeleteBehavior = DeleteBehavior.Restrict;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            RemoveAllCascade(modelBuilder);
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Country>()
                 .HasIndex(x => x.Name)
                 .IsUnique();
@@ -53,7 +67,6 @@ namespace BloodPlus.Database
             modelBuilder.ApplyConfiguration(new LookupTypes());
             modelBuilder.ApplyConfiguration(new LookupValues());
             modelBuilder.ApplyConfiguration(new Countries());
-            modelBuilder.ApplyConfiguration(new DataSeeds.States());
         }
     }
 }

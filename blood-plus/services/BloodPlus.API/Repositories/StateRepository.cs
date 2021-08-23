@@ -19,12 +19,15 @@ namespace BloodPlus.API.Repositories
 
         public async Task Add(IEnumerable<string> stateNames)
         {
-            var states =
-                from stateName in stateNames
-                where !DbContext.States.Any(x=> x.Name.ToLower() == stateName.ToLower())
-                select new State {CountryId = 1, Name = stateName};
+            var statesToAdd = (from stateName in stateNames
+                               let exists = DbContext.States.FirstOrDefault(x => x.Name == stateName)
+                               where exists == null
+                               select new State { CountryId = 1, Name = stateName }).ToList();
 
-            await DbContext.States.AddRangeAsync(states);
+            if (statesToAdd == null)
+                return;
+
+            await DbContext.States.AddRangeAsync(statesToAdd);
             await DbContext.SaveChangesAsync();
         }
     }

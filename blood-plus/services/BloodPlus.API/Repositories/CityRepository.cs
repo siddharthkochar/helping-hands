@@ -25,15 +25,19 @@ namespace BloodPlus.API.Repositories
 
         public async Task Add(IEnumerable<(string city, string state)> data)
         {
-            await _stateRepository.Add(data.Select(x => x.state).Distinct());
+            var distinctStates = data.Select(x => x.state).Distinct();
+            await _stateRepository.Add(distinctStates);
 
-            var cities =
-                from d in data.Distinct()
-                join s in DbContext.States on d.state equals s.Name
-                where !DbContext.Cities.Any(x => x.Name.ToLower() == d.city.ToLower())
-                select new City {Name = d.city, StateId = s.Id};
+            var citiesToAdd = (from d in data.Distinct()
+                               let city = DbContext.Cities.FirstOrDefault(x => x.Name == d.city)
+                               where city == null
+                               let state = DbContext.States.First(x => x.Name == d.state)
+                               select new City { Name = d.city, StateId = state.Id }).ToList();
 
-            await DbContext.Cities.AddRangeAsync(cities);
+            if (citiesToAdd == null)
+                return;
+
+            await DbContext.Cities.AddRangeAsync(citiesToAdd);
             await DbContext.SaveChangesAsync();
         }
 

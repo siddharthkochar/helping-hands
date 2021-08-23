@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BloodPlus.Database.Migrations
 {
     [DbContext(typeof(BloodPlusDatabaseContext))]
-    [Migration("20200705131110_InitialCreate")]
+    [Migration("20200705192717_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -346,218 +346,6 @@ namespace BloodPlus.Database.Migrations
                         .IsUnique();
 
                     b.ToTable("States");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CountryId = 1,
-                            Name = "Andaman & Nicobar Is"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CountryId = 1,
-                            Name = "Andhra Pradesh"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CountryId = 1,
-                            Name = "Arunachal Pradesh"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CountryId = 1,
-                            Name = "Assam"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CountryId = 1,
-                            Name = "Bihar"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CountryId = 1,
-                            Name = "Chandigarh *"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CountryId = 1,
-                            Name = "Chhattisgarh"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            CountryId = 1,
-                            Name = "Dadra & Nagar Haveli"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            CountryId = 1,
-                            Name = "Daman & Diu *"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            CountryId = 1,
-                            Name = "Delhi *"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            CountryId = 1,
-                            Name = "Goa"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            CountryId = 1,
-                            Name = "Gujarat"
-                        },
-                        new
-                        {
-                            Id = 13,
-                            CountryId = 1,
-                            Name = "Haryana"
-                        },
-                        new
-                        {
-                            Id = 14,
-                            CountryId = 1,
-                            Name = "Himachal Pradesh"
-                        },
-                        new
-                        {
-                            Id = 15,
-                            CountryId = 1,
-                            Name = "Jammu & Kashmir"
-                        },
-                        new
-                        {
-                            Id = 16,
-                            CountryId = 1,
-                            Name = "Jharkhand"
-                        },
-                        new
-                        {
-                            Id = 17,
-                            CountryId = 1,
-                            Name = "Karnataka"
-                        },
-                        new
-                        {
-                            Id = 18,
-                            CountryId = 1,
-                            Name = "Kerala"
-                        },
-                        new
-                        {
-                            Id = 19,
-                            CountryId = 1,
-                            Name = "Lakshadweep *"
-                        },
-                        new
-                        {
-                            Id = 20,
-                            CountryId = 1,
-                            Name = "Madhya Pradesh"
-                        },
-                        new
-                        {
-                            Id = 21,
-                            CountryId = 1,
-                            Name = "Maharashtra"
-                        },
-                        new
-                        {
-                            Id = 22,
-                            CountryId = 1,
-                            Name = "Manipur"
-                        },
-                        new
-                        {
-                            Id = 23,
-                            CountryId = 1,
-                            Name = "Meghalaya"
-                        },
-                        new
-                        {
-                            Id = 24,
-                            CountryId = 1,
-                            Name = "Mizoram"
-                        },
-                        new
-                        {
-                            Id = 25,
-                            CountryId = 1,
-                            Name = "Nagaland"
-                        },
-                        new
-                        {
-                            Id = 26,
-                            CountryId = 1,
-                            Name = "Orissa"
-                        },
-                        new
-                        {
-                            Id = 27,
-                            CountryId = 1,
-                            Name = "Pondicherry *"
-                        },
-                        new
-                        {
-                            Id = 28,
-                            CountryId = 1,
-                            Name = "Punjab"
-                        },
-                        new
-                        {
-                            Id = 29,
-                            CountryId = 1,
-                            Name = "Rajasthan"
-                        },
-                        new
-                        {
-                            Id = 30,
-                            CountryId = 1,
-                            Name = "Sikkim"
-                        },
-                        new
-                        {
-                            Id = 31,
-                            CountryId = 1,
-                            Name = "Tamil Nadu"
-                        },
-                        new
-                        {
-                            Id = 32,
-                            CountryId = 1,
-                            Name = "Tripura"
-                        },
-                        new
-                        {
-                            Id = 33,
-                            CountryId = 1,
-                            Name = "Uttar Pradesh"
-                        },
-                        new
-                        {
-                            Id = 34,
-                            CountryId = 1,
-                            Name = "Uttaranchal"
-                        },
-                        new
-                        {
-                            Id = 35,
-                            CountryId = 1,
-                            Name = "West Bengal"
-                        });
                 });
 
             modelBuilder.Entity("BloodPlus.Database.Entities.UserActivityLog", b =>
@@ -579,7 +367,7 @@ namespace BloodPlus.Database.Migrations
                     b.HasOne("BloodPlus.Database.Entities.State", "State")
                         .WithMany()
                         .HasForeignKey("StateId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -588,19 +376,19 @@ namespace BloodPlus.Database.Migrations
                     b.HasOne("BloodPlus.Database.Entities.City", "City")
                         .WithMany()
                         .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("BloodPlus.Database.Entities.Donor", "Donor")
                         .WithMany()
                         .HasForeignKey("DonorId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("BloodPlus.Database.Entities.State", "State")
                         .WithMany()
                         .HasForeignKey("StateId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -609,7 +397,7 @@ namespace BloodPlus.Database.Migrations
                     b.HasOne("BloodPlus.Database.Entities.LookupType", "LookupType")
                         .WithMany()
                         .HasForeignKey("LookupTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -618,7 +406,7 @@ namespace BloodPlus.Database.Migrations
                     b.HasOne("BloodPlus.Database.Entities.Country", "Country")
                         .WithMany()
                         .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

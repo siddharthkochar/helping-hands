@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BloodPlus.Database\BloodPlus.Database.csproj" />
+    <ProjectReference Include="..\BloodPlus.Services\BloodPlus.Services.csproj" />
   </ItemGroup>
 
 

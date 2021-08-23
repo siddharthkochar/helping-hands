@@ -80,7 +80,7 @@ namespace BloodPlus.Database.Migrations
                         column: x => x.CountryId,
                         principalTable: "Countries",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -100,7 +100,7 @@ namespace BloodPlus.Database.Migrations
                         column: x => x.LookupTypeId,
                         principalTable: "LookupTypes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -120,7 +120,7 @@ namespace BloodPlus.Database.Migrations
                         column: x => x.StateId,
                         principalTable: "States",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -141,19 +141,19 @@ namespace BloodPlus.Database.Migrations
                         column: x => x.CityId,
                         principalTable: "Cities",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_DonorCities_Donors_DonorId",
                         column: x => x.DonorId,
                         principalTable: "Donors",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_DonorCities_States_StateId",
                         column: x => x.StateId,
                         principalTable: "States",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.InsertData(
@@ -177,70 +177,28 @@ namespace BloodPlus.Database.Migrations
                 columns: new[] { "Id", "LookupTypeId", "Value" },
                 values: new object[,]
                 {
-                    { 22, 4, "Register" },
                     { 1, 1, "M" },
-                    { 2, 1, "F" },
-                    { 3, 2, "AB+" },
-                    { 4, 2, "AB-" },
-                    { 5, 2, "A+" },
-                    { 6, 2, "A-" },
-                    { 7, 2, "B+" },
-                    { 9, 2, "O+" },
-                    { 10, 2, "O-" },
-                    { 8, 2, "B-" },
-                    { 12, 3, "Fake" },
                     { 20, 4, "Search" },
-                    { 11, 3, "Available" },
+                    { 19, 3, "false" },
                     { 18, 3, "Nine" },
                     { 17, 3, "Not Well" },
-                    { 19, 3, "false" },
+                    { 16, 3, "Other" },
                     { 15, 3, "Unreachable" },
                     { 14, 3, "More" },
                     { 13, 3, "Inappropriate" },
-                    { 16, 3, "Other" },
-                    { 21, 4, "Feedback" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "States",
-                columns: new[] { "Id", "CountryId", "Name" },
-                values: new object[,]
-                {
-                    { 30, 1, "Sikkim" },
-                    { 35, 1, "West Bengal" },
-                    { 34, 1, "Uttaranchal" },
-                    { 33, 1, "Uttar Pradesh" },
-                    { 32, 1, "Tripura" },
-                    { 31, 1, "Tamil Nadu" },
-                    { 29, 1, "Rajasthan" },
-                    { 27, 1, "Pondicherry *" },
-                    { 2, 1, "Andhra Pradesh" },
-                    { 3, 1, "Arunachal Pradesh" },
-                    { 4, 1, "Assam" },
-                    { 5, 1, "Bihar" },
-                    { 6, 1, "Chandigarh *" },
-                    { 7, 1, "Chhattisgarh" },
-                    { 8, 1, "Dadra & Nagar Haveli" },
-                    { 9, 1, "Daman & Diu *" },
-                    { 10, 1, "Delhi *" },
-                    { 11, 1, "Goa" },
-                    { 12, 1, "Gujarat" },
-                    { 13, 1, "Haryana" },
-                    { 14, 1, "Himachal Pradesh" },
-                    { 15, 1, "Jammu & Kashmir" },
-                    { 16, 1, "Jharkhand" },
-                    { 17, 1, "Karnataka" },
-                    { 18, 1, "Kerala" },
-                    { 19, 1, "Lakshadweep *" },
-                    { 20, 1, "Madhya Pradesh" },
-                    { 21, 1, "Maharashtra" },
-                    { 22, 1, "Manipur" },
-                    { 23, 1, "Meghalaya" },
-                    { 24, 1, "Mizoram" },
-                    { 25, 1, "Nagaland" },
-                    { 26, 1, "Orissa" },
-                    { 28, 1, "Punjab" },
-                    { 1, 1, "Andaman & Nicobar Is" }
+                    { 12, 3, "Fake" },
+                    { 11, 3, "Available" },
+                    { 10, 2, "O-" },
+                    { 9, 2, "O+" },
+                    { 8, 2, "B-" },
+                    { 7, 2, "B+" },
+                    { 6, 2, "A-" },
+                    { 5, 2, "A+" },
+                    { 4, 2, "AB-" },
+                    { 3, 2, "AB+" },
+                    { 2, 1, "F" },
+                    { 21, 4, "Feedback" },
+                    { 22, 4, "Register" }
                 });
 
             migrationBuilder.CreateIndex(

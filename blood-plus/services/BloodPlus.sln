@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BloodPlus.API", "BloodPlus.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BloodPlus.Database", "BloodPlus.Database\BloodPlus.Database.csproj", "{2BC12084-61A0-4A60-A714-10F89CBD7667}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BloodPlus.Services", "BloodPlus.Services\BloodPlus.Services.csproj", "{B99F8E93-7AFB-48B2-A0B7-712C12893B23}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{2BC12084-61A0-4A60-A714-10F89CBD7667}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BC12084-61A0-4A60-A714-10F89CBD7667}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2BC12084-61A0-4A60-A714-10F89CBD7667}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B99F8E93-7AFB-48B2-A0B7-712C12893B23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B99F8E93-7AFB-48B2-A0B7-712C12893B23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B99F8E93-7AFB-48B2-A0B7-712C12893B23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B99F8E93-7AFB-48B2-A0B7-712C12893B23}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
